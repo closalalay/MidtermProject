@@ -24,18 +24,19 @@ public class Maini {
 
     // display summary with grand total
     public static void displaySummary(String[] names, double[] prices, int[] quantities, double[] totals) {
+        System.out.println("\n====== RECEIPT =====");
+        System.out.println("Name\t\tPrice\tQty\tTotal");
+
         double grandTotal = 0;
-
-        System.out.println("\n====== PURCHASE SUMMARY =====");
-        System.out.println("Name\tPrice\tQty\tTotal");
-
         for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + "\t" + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
+            String nameSpacing = (names[i].length() > 7) ? "\t" : "\t\t";
+            System.out.println(names[i] + nameSpacing + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
             grandTotal += totals[i];
         }
-        System.out.println("___________________________");
-        System.out.println("GRAND TOTAL: " + grandTotal);
-        System.out.println("___________________________");
+
+        System.out.println("_______________________________");
+        System.out.println("GRAND TOTAL: PHP " + grandTotal);
+        System.out.println("_______________________________");
     }
 
     public static void main(String[] args) {
@@ -43,9 +44,19 @@ public class Maini {
 
         System.out.print("Enter your budget: ");
         double budget = input.nextDouble();
+        if (budget <= 0) {
+            System.out.println("Budget must be greater than 0.");
+            input.close();
+            return;
+        }
 
         System.out.print("How many products will you buy? ");
         int productQuantity = input.nextInt();
+        if (productQuantity <= 0) {
+            System.out.println("Number of products must be at least 1.");
+            input.close();
+            return;
+        }
 
         String[] names = new String[productQuantity];
         double[] prices = new double[productQuantity];
@@ -55,39 +66,49 @@ public class Maini {
         input.nextLine();
 
         for (int i = 0; i < productQuantity; i++) {
-            System.out.println("\n");
+            System.out.println("\nProduct " + (i + 1));
+
             System.out.print("Enter product name: ");
             names[i] = input.nextLine();
 
             System.out.print("Enter product price: ");
             prices[i] = input.nextDouble();
+            if (prices[i] < 0) {
+                System.out.println("Price cannot be negative.");
+                prices[i] = 0;
+            }
 
             System.out.print("Enter quantity: ");
             quantities[i] = input.nextInt();
+            if (quantities[i] < 0) {
+                System.out.println("Quantity cannot be negative.");
+                quantities[i] = 0;
+            }
 
             totals[i] = prices[i] * quantities[i];
-
             input.nextLine();
         }
 
         // compute totals and stats
         double totalSpent = getTotalSpent(totals);
         double remaining = budget - totalSpent;
-        double percent = (totalSpent / budget) * 100;
+        double percent =(totalSpent / budget) * 100;
         double highest = getHighest(totals);
 
         displaySummary(names, prices, quantities, totals);
 
-        System.out.println("\nTotal Spent: " + totalSpent);
-        System.out.println("Remaining Budget: " + remaining);
-        System.out.println("Budget Spent percent: " + percent + "%");
-        System.out.println("Highest Expense: " + highest);
+        System.out.println("\nTotal Spent: PHP " + totalSpent);
+        System.out.println("Remaining Budget: PHP " + remaining);
+        System.out.println("Budget Spent Percent: " + percent + "%");
+        System.out.println("Highest Expense: PHP " + highest);
 
         // displaying feedback
         double recommended = 30;
-        System.out.println("\n====== RECOMMENDED BUDGET: 30% ======\n");
+        System.out.println("\nRECOMMENDED BUDGET: " + recommended + "%\n");
 
-        if (percent > 100) {
+        if (percent == 100) {
+            System.out.println("No more budget left");
+        } else if (percent > 100) {
             System.out.println("Budget Exceeded! You spent more than your budget!");
         } else if (percent > 70) {
             System.out.println("You are close to exceeding your budget!");
