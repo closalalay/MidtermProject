@@ -2,45 +2,10 @@ import java.util.Scanner;
 
 public class Maini {
 
-    // compute total spent
-    public static double getTotalSpent(double[] totals) {
-        double sum = 0;
-        for (int i = 0; i < totals.length; i++) {
-            sum += totals[i];
-        }
-        return sum;
-    }
-
-    // find highest expense
-    public static double getHighest(double[] totals) {
-        double highest = totals[0];
-        for (int i = 1; i < totals.length; i++) {
-            if (totals[i] > highest) {
-                highest = totals[i];
-            }
-        }
-        return highest;
-    }
-
-    // display summary with grand total
-    public static void displaySummary(String[] names, double[] prices, int[] quantities, double[] totals) {
-        System.out.println("\n====== RECEIPT =====");
-        System.out.println("Name\t\tPrice\tQty\tTotal");
-
-        double grandTotal = 0;
-        for (int i = 0; i < names.length; i++) {
-            String nameSpacing = (names[i].length() > 7) ? "\t" : "\t\t";
-            System.out.println(names[i] + nameSpacing + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
-            grandTotal += totals[i];
-        }
-
-        System.out.println("_______________________________");
-        System.out.println("GRAND TOTAL: PHP " + grandTotal);
-        System.out.println("_______________________________");
-    }
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        
+        System.out.println("HOLIDAY SHOPPING BUDGET PLANNER SYSTEM\n");
 
         System.out.print("Enter your budget: ");
         double budget = input.nextDouble();
@@ -89,7 +54,6 @@ public class Maini {
             input.nextLine();
         }
 
-        // compute totals and stats
         double totalSpent = getTotalSpent(totals);
         double remaining = budget - totalSpent;
         double percent =(totalSpent / budget) * 100;
@@ -102,9 +66,9 @@ public class Maini {
         System.out.println("Budget Spent Percent: " + percent + "%");
         System.out.println("Highest Expense: PHP " + highest);
 
-        // displaying feedback
         double recommended = 30;
-        System.out.println("\nRECOMMENDED BUDGET: " + recommended + "%\n");
+        System.out.println("\nBased on the 50/30/20 rule, 30% of income is typically\nallocated for wants, including holiday spending.\n");
+        System.out.print("You spent "+percent+"% of your budget and ");
 
         if (percent == 100) {
             System.out.println("No more budget left");
@@ -119,5 +83,42 @@ public class Maini {
         }
 
         input.close();
+    }
+
+    // compute total spent
+    public static double getTotalSpent(double[] totals) {
+        double sum = 0;
+        for (int i = 0; i < totals.length; i++) {
+            sum += totals[i];
+        }
+        return sum;
+    }
+
+    // find highest expense
+    public static double getHighest(double[] totals) {
+        double highest = totals[0];
+        for (int i = 1; i < totals.length; i++) {
+            if (totals[i] > highest) {
+                highest = totals[i];
+            }
+        }
+        return highest;
+    }
+
+    // display summary with grand total
+    public static void displaySummary(String[] names, double[] prices, int[] quantities, double[] totals) {
+        System.out.println("\n====== RECEIPT =====");
+        System.out.println("Name\tPrice\tQty\tTotal");
+
+        double grandTotal = 0;
+        for (int i = 0; i < names.length; i++) {
+            String nameSpacing = (names[i].length() > 7) ? "\t" : "\t";
+            System.out.println(names[i] + nameSpacing + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
+            grandTotal += totals[i];
+        }
+
+        System.out.println("_______________________________");
+        System.out.println("GRAND TOTAL: PHP " + grandTotal);
+        System.out.println("_______________________________");
     }
 }
