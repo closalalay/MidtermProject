@@ -4,7 +4,7 @@ public class Maini {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        
+
         System.out.println("HOLIDAY SHOPPING BUDGET PLANNER SYSTEM\n");
 
         System.out.print("Enter your budget: ");
@@ -56,19 +56,19 @@ public class Maini {
 
         double totalSpent = getTotalSpent(totals);
         double remaining = budget - totalSpent;
-        double percent =(totalSpent / budget) * 100;
+        double percent = (totalSpent / budget) * 100;
         double highest = getHighest(totals);
 
         displaySummary(names, prices, quantities, totals);
 
         System.out.println("\nTotal Spent: PHP " + totalSpent);
         System.out.println("Remaining Budget: PHP " + remaining);
-        System.out.println("Budget Spent Percent: " + percent + "%");
+        System.out.printf("Budget Spent Percent: %.2f%%\n", percent);
         System.out.println("Highest Expense: PHP " + highest);
 
         double recommended = 30;
         System.out.println("\nBased on the 50/30/20 rule, 30% of income is typically\nallocated for wants, including holiday spending.\n");
-        System.out.print("You spent "+percent+"% of your budget and ");
+        System.out.print("You spent " + percent + "% of your budget and ");
 
         if (percent == 100) {
             System.out.println("No more budget left");
@@ -108,12 +108,11 @@ public class Maini {
     // display summary with grand total
     public static void displaySummary(String[] names, double[] prices, int[] quantities, double[] totals) {
         System.out.println("\n====== RECEIPT =====");
-        System.out.println("Name\tPrice\tQty\tTotal");
+        System.out.println("Name\t\tPrice\tQty\tTotal");
 
         double grandTotal = 0;
         for (int i = 0; i < names.length; i++) {
-            String nameSpacing = (names[i].length() > 7) ? "\t" : "\t";
-            System.out.println(names[i] + nameSpacing + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
+            System.out.println(names[i] + "\t\t" + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
             grandTotal += totals[i];
         }
 
