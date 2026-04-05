@@ -112,7 +112,7 @@ public class Maini {
 
         double grandTotal = 0;
         for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + "\t\t" + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
+            System.out.println(names[i] + "\t" + prices[i] + "\t" + quantities[i] + "\t" + totals[i]);
             grandTotal += totals[i];
         }
 
